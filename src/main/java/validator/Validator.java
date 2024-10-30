@@ -1,4 +1,6 @@
-package main.java;
+package main.java.validator;
+
+import main.java.view.OutPutView;
 
 public class Validator {
 
@@ -13,8 +15,19 @@ public class Validator {
             OutPutView.print("플레이어 수는 2~4명을 입력해야 합니다.");
             return true;
         }
-
         return false;
+    }
+
+    public static boolean PlayerNicknameCheck(String nickname) {
+
+        if(nullCheck(nickname) || gapCheck(nickname)){
+            return false;
+        }
+
+        if(nicknameLengthCheck(nickname)){
+            return false;
+        }
+        return true;
     }
     private static boolean nullCheck(String s){
         return s==null || s.isBlank();
@@ -25,18 +38,5 @@ public class Validator {
 
     private static boolean nicknameLengthCheck(String nickname){
         return nickname.length()<1 || nickname.length()>20;
-    }
-    public static boolean PlayerNicknameCheck(String nickname) {
-
-        if(nullCheck(nickname) || gapCheck(nickname)){
-            System.out.println("공백은 안됩니다.");
-            return false;
-        }
-
-        if(nicknameLengthCheck(nickname)){
-            System.out.println("닉네임길이는 1이상 20이하만 가능합니다.");
-            return false;
-        }
-        return true;
     }
 }
