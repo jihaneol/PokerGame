@@ -1,8 +1,10 @@
 import main.java.model.Card;
 import main.java.model.PokerRank;
 import main.java.model.Shape;
+import main.java.service.CardDeck;
 import main.java.service.Dealer;
 import main.java.service.Player;
+import main.java.service.PlayerCardDeck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -24,11 +26,9 @@ public class PlayerTest {
     void init() {
         player1 = new Player("테스터1");
         player2 = new Player("테스터2");
+        
 
     }
-
-
-
 
     @Nested
     @DisplayName("족보 랭크 잘 반환되었나 확인 테스 묶음")
@@ -42,9 +42,9 @@ public class PlayerTest {
                     , new Card(11, Shape.SPADE)
                     , new Card(12, Shape.SPADE)
                     , new Card(13, Shape.SPADE));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), ROYAL_STRAIHGT_FLUSH);
+            assertEquals(player1.getCardDeck().getRank(), ROYAL_STRAIHGT_FLUSH);
         }
 
         @Test
@@ -54,9 +54,9 @@ public class PlayerTest {
                     , new Card(3, Shape.SPADE)
                     , new Card(5, Shape.SPADE)
                     , new Card(4, Shape.SPADE));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), PokerRank.BACK_STRAIGHT_FLUSH);
+            assertEquals(player1.getCardDeck().getRank(), PokerRank.BACK_STRAIGHT_FLUSH);
         }
 
         @Test
@@ -66,9 +66,9 @@ public class PlayerTest {
                     , new Card(3, Shape.SPADE)
                     , new Card(5, Shape.SPADE)
                     , new Card(4, Shape.SPADE));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), PokerRank.STRAIGHT_FLUSH);
+            assertEquals(player1.getCardDeck().getRank(), PokerRank.STRAIGHT_FLUSH);
         }
 
         @Test
@@ -78,9 +78,9 @@ public class PlayerTest {
                     , new Card(1, Shape.HEART)
                     , new Card(1, Shape.CLOVA)
                     , new Card(4, Shape.DIAMOND));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), PokerRank.FOUR_OF_A_KIND);
+            assertEquals(player1.getCardDeck().getRank(), PokerRank.FOUR_OF_A_KIND);
         }
 
         @Test
@@ -90,9 +90,9 @@ public class PlayerTest {
                     , new Card(3, Shape.HEART)
                     , new Card(1, Shape.DIAMOND)
                     , new Card(1, Shape.SPADE));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), FULL_HOUSE);
+            assertEquals(player1.getCardDeck().getRank(), FULL_HOUSE);
         }
 
         @Test
@@ -102,9 +102,9 @@ public class PlayerTest {
                     , new Card(4, Shape.SPADE)
                     , new Card(1, Shape.SPADE)
                     , new Card(7, Shape.SPADE));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), FLUSH);
+            assertEquals(player1.getCardDeck().getRank(), FLUSH);
         }
 
         @Test
@@ -114,9 +114,9 @@ public class PlayerTest {
                     , new Card(12, Shape.HEART)
                     , new Card(13, Shape.DIAMOND)
                     , new Card(1, Shape.SPADE));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), MOUNTIN);
+            assertEquals(player1.getCardDeck().getRank(), MOUNTIN);
         }
 
         @Test
@@ -126,9 +126,9 @@ public class PlayerTest {
                     , new Card(3, Shape.HEART)
                     , new Card(4, Shape.DIAMOND)
                     , new Card(5, Shape.SPADE));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), BACK_STRAIGHT);
+            assertEquals(player1.getCardDeck().getRank(), BACK_STRAIGHT);
         }
 
         @Test
@@ -138,9 +138,9 @@ public class PlayerTest {
                     , new Card(3, Shape.HEART)
                     , new Card(5, Shape.CLOVA)
                     , new Card(4, Shape.DIAMOND));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), PokerRank.STRAIGHT);
+            assertEquals(player1.getCardDeck().getRank(), PokerRank.STRAIGHT);
         }
 
         @Test
@@ -150,9 +150,9 @@ public class PlayerTest {
                     , new Card(1, Shape.HEART)
                     , new Card(1, Shape.CLOVA)
                     , new Card(4, Shape.DIAMOND));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), PokerRank.THREE_OF_A_KIND);
+            assertEquals(player1.getCardDeck().getRank(), PokerRank.THREE_OF_A_KIND);
         }
 
         @Test
@@ -162,9 +162,9 @@ public class PlayerTest {
                     , new Card(1, Shape.HEART)
                     , new Card(1, Shape.CLOVA)
                     , new Card(4, Shape.DIAMOND));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), PokerRank.TWO_PAIR);
+            assertEquals(player1.getCardDeck().getRank(), PokerRank.TWO_PAIR);
         }
 
         @Test
@@ -174,9 +174,9 @@ public class PlayerTest {
                     , new Card(4, Shape.HEART)
                     , new Card(3, Shape.CLOVA)
                     , new Card(4, Shape.DIAMOND));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), ONE_PAIR);
+            assertEquals(player1.getCardDeck().getRank(), ONE_PAIR);
         }
 
         @Test
@@ -186,12 +186,14 @@ public class PlayerTest {
                     , new Card(1, Shape.HEART)
                     , new Card(9, Shape.CLOVA)
                     , new Card(4, Shape.DIAMOND));
-            player1.setCard(new ArrayList<>(cards));
+            player1.setCard(new PlayerCardDeck(new ArrayList<>(cards)));
 
-            assertEquals(player1.getRank(), HIGH_CARD);
+            assertEquals(player1.getCardDeck().getRank(), HIGH_CARD);
         }
 
     }
+
+
 
     @Nested
     @DisplayName("노 페어일 때--")
@@ -203,22 +205,22 @@ public class PlayerTest {
             @DisplayName("탑 카드가 동일하다면 두번쨰 탑 카드 확인 - 값이 다를 시 숫자 큰 쪽이 이긴다.")
             void highCard2(){
                 highPlayersFixture_2();
-                PokerRank rank = player1.getRank();
+                PokerRank rank = player1.getCardDeck().getRank();
                 //when
-                Player compare = rank.compare(player1, player2);
+                CardDeck compare = rank.compare(player1.getCardDeck(), player2.getCardDeck());
                 //then
-                assertEquals(compare, player2);
+                assertEquals(compare, player2.getCardDeck());
 
             }
             @Test
             @DisplayName("탑 카드가 다르면 큰 숫자인 플레이어가 이긴다.")
             void highCard1(){
                 highPlayersFixture_1();
-                PokerRank rank = player1.getRank();
+                PokerRank rank = player1.getCardDeck().getRank();
                 //when
-                Player compare = rank.compare(player1, player2);
+                CardDeck compare = rank.compare(player1.getCardDeck(), player2.getCardDeck());
                 //then
-                assertEquals(compare, player2);
+                assertEquals(compare, player2.getCardDeck());
             }
         }
 
@@ -227,11 +229,11 @@ public class PlayerTest {
         void highCard5(){
             //given
             highPlayersFixture_5();
-            PokerRank rank = player1.getRank();
+            PokerRank rank = player1.getCardDeck().getRank();
             //when
-            Player compare = rank.compare(player1, player2);
+            CardDeck compare = rank.compare(player1.getCardDeck(), player2.getCardDeck());
             //then
-            assertEquals(compare, player2);
+            assertEquals(compare, player2.getCardDeck());
         }
 
     }
@@ -252,11 +254,12 @@ public class PlayerTest {
         void 원페어_테스트_모두같아서_탑의모양을확인() throws Exception {
             //given
             onePairPlayersFixture_5();
-            PokerRank rank = player1.getRank();
+            PokerRank rank = player1.getCardDeck().getRank();
+
             //when
-            Player compare = rank.compare(player1, player2);
+            CardDeck compare = rank.compare(player1.getCardDeck(), player2.getCardDeck());
             //then
-            assertEquals(compare, player2);
+            assertEquals(compare, player2.getCardDeck());
 
         }
 
@@ -265,11 +268,11 @@ public class PlayerTest {
         void 원페어_테스트_탑페어_확인() throws Exception {
             //given
             onePairPlayersFixture_1();
-            PokerRank rank = player1.getRank();
+            PokerRank rank = player1.getCardDeck().getRank();
             //when
-            Player compare = rank.compare(player1, player2);
+            CardDeck compare = rank.compare(player1.getCardDeck(), player2.getCardDeck());
             //then
-            assertEquals(compare, player1);
+            assertEquals(compare, player1.getCardDeck());
 
         }
 
@@ -280,26 +283,28 @@ public class PlayerTest {
     void 투페어_테스트() throws Exception {
 
         TwoPairPlayersFixture_1();
-        PokerRank rank = player1.getRank();
+        PokerRank rank = player1.getCardDeck().getRank();
         //when
-        Player compare = rank.compare(player1, player2);
+        CardDeck compare = rank.compare(player1.getCardDeck(), player2.getCardDeck());
         //then
-        assertEquals(compare, player2);
+        assertEquals(compare, player1.getCardDeck());
     }
+
+
     private void highPlayersFixture_1() {
         List<Card> cards1 = List.of(new Card(5, Shape.HEART)
                 , new Card(2, Shape.DIAMOND)
                 , new Card(6, Shape.CLOVA)
                 , new Card(7, Shape.HEART)
                 , new Card(8, Shape.DIAMOND));
-        player1.setCard(new ArrayList<>(cards1));
+        player1.setCard(new PlayerCardDeck(new ArrayList<>(cards1)));
 
         List<Card> cards2 = List.of(new Card(1, Shape.SPADE)
                 , new Card(3, Shape.CLOVA)
                 , new Card(4, Shape.HEART)
                 , new Card(6, Shape.CLOVA)
                 , new Card(9, Shape.CLOVA));
-        player2.setCard(new ArrayList<>(cards2));
+        player2.setCard(new PlayerCardDeck(new ArrayList<>(cards2)));
     }
     private void highPlayersFixture_2() {
         List<Card> cards1 = List.of(new Card(1, Shape.HEART)
@@ -307,14 +312,14 @@ public class PlayerTest {
            , new Card(6, Shape.CLOVA)
                 , new Card(7, Shape.HEART)
                 , new Card(8, Shape.DIAMOND));
-        player1.setCard(new ArrayList<>(cards1));
+        player1.setCard(new PlayerCardDeck(new ArrayList<>(cards1)));
 
         List<Card> cards2 = List.of(new Card(1, Shape.SPADE)
                 , new Card(3, Shape.CLOVA)
                 , new Card(4, Shape.HEART)
                 , new Card(6, Shape.CLOVA)
                 , new Card(9, Shape.CLOVA));
-        player2.setCard(new ArrayList<>(cards2));
+        player2.setCard(new PlayerCardDeck(new ArrayList<>(cards2)));
     }
 
     private void highPlayersFixture_5() {
@@ -323,14 +328,14 @@ public class PlayerTest {
                 , new Card(4, Shape.CLOVA)
                 , new Card(6, Shape.HEART)
                 , new Card(9, Shape.DIAMOND));
-        player1.setCard(new ArrayList<>(cards1));
+        player1.setCard(new PlayerCardDeck(new ArrayList<>(cards1)));
 
         List<Card> cards2 = List.of(new Card(1, Shape.SPADE)
                 , new Card(3, Shape.CLOVA)
                 , new Card(4, Shape.HEART)
                 , new Card(6, Shape.CLOVA)
                 , new Card(9, Shape.CLOVA));
-        player2.setCard(new ArrayList<>(cards2));
+        player2.setCard(new PlayerCardDeck(new ArrayList<>(cards2)));
     }
 
     void onePairPlayersFixture_5() {
@@ -339,14 +344,14 @@ public class PlayerTest {
                 , new Card(4, Shape.CLOVA)
                 , new Card(6, Shape.HEART)
                 , new Card(9, Shape.DIAMOND));
-        player1.setCard(new ArrayList<>(cards1));
+        player1.setCard(new PlayerCardDeck(new ArrayList<>(cards1)));
 
         List<Card> cards2 = List.of(new Card(1, Shape.SPADE)
                 , new Card(1, Shape.CLOVA)
                 , new Card(4, Shape.HEART)
                 , new Card(6, Shape.CLOVA)
                 , new Card(9, Shape.CLOVA));
-        player2.setCard(new ArrayList<>(cards2));
+        player2.setCard(new PlayerCardDeck(new ArrayList<>(cards2)));
     }
     void royalPlayersFixture_1() {
         List<Card> cards1 = List.of(new Card(1, Shape.HEART)
@@ -354,14 +359,14 @@ public class PlayerTest {
                 , new Card(11, Shape.HEART)
                 , new Card(12, Shape.HEART)
                 , new Card(13, Shape.HEART));
-        player1.setCard(new ArrayList<>(cards1));
+        player1.setCard(new PlayerCardDeck(new ArrayList<>(cards1)));
 
         List<Card> cards2 = List.of(new Card(1, Shape.SPADE)
                 , new Card(10, Shape.SPADE)
                 , new Card(11, Shape.SPADE)
                 , new Card(12, Shape.SPADE)
                 , new Card(13, Shape.SPADE));
-        player2.setCard(new ArrayList<>(cards2));
+        player2.setCard(new PlayerCardDeck(new ArrayList<>(cards2)));
     }
 
     void onePairPlayersFixture_1() {
@@ -370,14 +375,14 @@ public class PlayerTest {
                 , new Card(3, Shape.CLOVA)
                 , new Card(6, Shape.HEART)
                 , new Card(1, Shape.DIAMOND));
-        player1.setCard(new ArrayList<>(cards1));
+        player1.setCard(new PlayerCardDeck(new ArrayList<>(cards1)));
 
         List<Card> cards2 = List.of(new Card(2, Shape.SPADE)
                 , new Card(2, Shape.CLOVA)
                 , new Card(4, Shape.HEART)
                 , new Card(5, Shape.CLOVA)
                 , new Card(1, Shape.CLOVA));
-        player2.setCard(new ArrayList<>(cards2));
+        player2.setCard(new PlayerCardDeck(new ArrayList<>(cards2)));
     }
 
     private void TwoPairPlayersFixture_1() {
@@ -386,13 +391,13 @@ public class PlayerTest {
                 , new Card(1, Shape.SPADE)
                 , new Card(1, Shape.HEART)
                 , new Card(9, Shape.DIAMOND));
-        player1.setCard(new ArrayList<>(cards1));
+        player1.setCard(new PlayerCardDeck(new ArrayList<>(cards1)));
 
         List<Card> cards2 = List.of(new Card(2, Shape.SPADE)
                 , new Card(2, Shape.CLOVA)
                 , new Card(1, Shape.DIAMOND)
                 , new Card(1, Shape.CLOVA)
                 , new Card(9, Shape.CLOVA));
-        player2.setCard(new ArrayList<>(cards2));
+        player2.setCard(new PlayerCardDeck(new ArrayList<>(cards2)));
     }
 }

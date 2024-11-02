@@ -8,35 +8,32 @@ import java.util.*;
 
 import static main.java.model.PokerRank.*;
 
-public class RankPlayer {
-
-    private int money;
-    private String nickname;
-    private List<Card> cardDeck;
+public class PlayerCardDeck extends CardDeck{
     private Map<Integer, Integer> map;
     private Set<Shape> set;
-    private int win;
-    private int lose;
-
-
-    public RankPlayer(String nickname) {
-        this.money = 10000;
-        this.nickname = nickname;
-    }
-
-    public void setCard(List<Card> cards) {
-        cardDeck = cards;
+    private PokerRank pokerRank;
+    public PlayerCardDeck(List<Card> cards) {
+        super(cards);
         set = new HashSet<>();
         map = new HashMap<>();
 
-        for (Card c : cardDeck) {
+        for (Card c : cards) {
             set.add(c.getKIND());
             map.put(c.getNUMBER(), map.getOrDefault(c.getNUMBER(), 0) + 1);
         }
-        Collections.sort(cardDeck);
+        Collections.sort(super.cards);
     }
 
     public PokerRank getRank() {
+
+        if(this.pokerRank != null) return this.pokerRank;
+
+        // 로티플 = 플러쉬 + 마운틴
+        pokerRank =  getPokerRank();
+
+        return pokerRank;
+    }
+    private PokerRank getPokerRank(){
         boolean straight = true;
         boolean flush = false;
         boolean back = false;
@@ -44,8 +41,8 @@ public class RankPlayer {
 
         int[] mountinArr = {1, 10, 11, 12, 13};
 
-        for (int i = 0; i < cardDeck.size(); i++) {
-            if (mountinArr[i] != cardDeck.get(i).getNUMBER()) {
+        for (int i = 0; i < cards.size(); i++) {
+            if (mountinArr[i] != cards.get(i).getNUMBER()) {
                 mountin = false;
             }
         }
@@ -55,20 +52,19 @@ public class RankPlayer {
                 .mapToInt(i -> i)
                 .sum();
 
-        for (int i = 1; i < cardDeck.size(); i++) {
-            if (cardDeck.get(i - 1).getNUMBER() + 1 != cardDeck.get(i).getNUMBER()) {
+        for (int i = 1; i < cards.size(); i++) {
+            if (cards.get(i - 1).getNUMBER() + 1 != cards.get(i).getNUMBER()) {
                 straight = false;
             }
         }
 
-        if (straight && cardDeck.get(0).getNUMBER() == 1) {
+        if (straight && cards.get(0).getNUMBER() == 1) {
             back = true;
         }
 
         if (set.size() == 1) {
             flush = true;
         }
-        // 로티플 = 플러쉬 + 마운틴
         if (flush && mountin) return ROYAL_STRAIHGT_FLUSH;
         // 백 + 스트레이트 + 플러쉬
         if (back && straight && flush) return BACK_STRAIGHT_FLUSH;
@@ -94,21 +90,18 @@ public class RankPlayer {
         };
     }
 
-    // 제일 큰 카드 확인
     public Card getTopCard() {
-        Card card = cardDeck.get(0);
+        Card card = cards.get(0);
 
         if (card.getNUMBER() == 1) return new Card(14, card.getKIND());
 
-        return cardDeck.get(4);
+        return cards.get(4);
     }
 
-    // 가장 큰 모양
-    public RankPlayer topShapeCompare(RankPlayer p) {
-        return this.cardDeck.get(0).getKIND().getNum() < p.cardDeck.get(0).getKIND().getNum() ? p : this;
+    public CardDeck topShapeCompare(CardDeck p) {
+        return this.cards.get(0).getKIND().getNum() < p.cards.get(0).getKIND().getNum() ? p : this;
     }
 
-    // 가장큰
     public int getMaxPairNumber() {
         int key = map.entrySet().stream()
                 .filter(e -> e.getValue() > 2)
@@ -117,7 +110,7 @@ public class RankPlayer {
         return key == 1 ? 14 : key;
     }
 
-    public RankPlayer pairCompareTO(RankPlayer p) {
+    public CardDeck pairCompareTO(CardDeck p) {
 
         List<Map.Entry<Integer, Integer>> p1 = sorted();
         List<Map.Entry<Integer, Integer>> p2 = p.sorted();
@@ -139,16 +132,16 @@ public class RankPlayer {
         return shape.getNum() < shape1.getNum() ? p : this;
     }
 
-    private Shape maxShape(int key) {
+    protected Shape maxShape(int key) {
         Shape result = Shape.CLOVA;
-        for (int i = 0; i < cardDeck.size(); i++) {
-            Card card = cardDeck.get(i);
+        for (int i = 0; i < cards.size(); i++) {
+            Card card = cards.get(i);
             if (card.getNUMBER() == key && result.getNum() < card.getKIND().getNum()) result = card.getKIND();
         }
         return result;
     }
 
-    private List<Map.Entry<Integer, Integer>> sorted() {
+    protected List<Map.Entry<Integer, Integer>> sorted() {
         List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(map.entrySet());
 
         entryList.sort((e1, e2) -> {
@@ -174,29 +167,6 @@ public class RankPlayer {
 
     @Override
     public String toString() {
-        return String.format("플레이어 %-21s %-20s  카드덱 %-40s 우승 횟수: %s", nickname, getRank(), cardDeck, win);
+        return String.format("%s",cards);
     }
-
-    public void win() {
-        win++;
-        money += 100;
-    }
-
-    public void lose() {
-        lose++;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RankPlayer player = (RankPlayer) o;
-        return money == player.money && win == player.win && lose == player.lose && Objects.equals(nickname, player.nickname) && Objects.equals(cardDeck, player.cardDeck) && Objects.equals(map, player.map) && Objects.equals(set, player.set);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(money, nickname, cardDeck, map, set, win, lose);
-    }
-
 }

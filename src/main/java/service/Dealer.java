@@ -18,16 +18,16 @@ public class Dealer {
         Collections.shuffle(cardDeck);
     }
 
-    public static Player comparePlayer(Player p1, Player p2){
+    public static CardDeck  comparePlayer(CardDeck p1, CardDeck p2){
         PokerRank rank1 = p1.getRank();
         PokerRank rank2 = p2.getRank();
 
         return rank1.isHigherThan(rank2)? p2 : rank1.getRank() == rank2.getRank() ? rank1.compare(p1,p2) : p1;
     }
 
-    public List<Card> handOut(){
+    public CardDeck handOut(){
         List<Card> result = new ArrayList<>();
         for(int i=0; i<5; i++) result.add(cardDeck.get(size--));
-        return result;
+        return new PlayerCardDeck(result);
     }
 }

@@ -1,7 +1,7 @@
 package main.java.controller;
 
-import main.java.InitSetting;
 import main.java.Message;
+import main.java.service.CardDeck;
 import main.java.service.Dealer;
 import main.java.service.Player;
 import main.java.util.CardMaker;
@@ -9,10 +9,7 @@ import main.java.validator.Validator;
 import main.java.view.Inputview;
 import main.java.view.OutPutView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static main.java.InitSetting.GAME_ROUND;
 
@@ -23,27 +20,31 @@ public class GamePlay {
     public void run() {
         System.out.println("게임을 시작합니다.");
 
+        makePlayer(getPlayerNumber());
+        dealer = new Dealer(CardMaker.make());
+
+        for (int i = 1; i <= GAME_ROUND; i++) {
+            System.out.printf("%d라운드 \n", i);
+            // 카드 서플하고 플레이어에게 5개씩 나눠주기..
+            dealer.suffle();
+            for (Player p : playerList) {
+                CardDeck cardDeck = dealer.handOut();
+                p.setCard(cardDeck);
+            }
+            play(i);
+        }
+
+        endGame();
+    }
+
+    private int getPlayerNumber() {
         String re;
         // 몇명이서 할거냐..
         do {
             re = Inputview.readNumber();
         } while (Validator.PlayerNumCheck(re));
 
-        makePlayer(Integer.valueOf(re));
-        dealer = new Dealer(CardMaker.make());
-
-        for (int i = 1; i <= GAME_ROUND; i++) {
-
-            System.out.printf("%d라운드 \n", i);
-            // 카드 서플하고 플레이어에게 5개씩 나눠주기..
-            dealer.suffle();
-            for (Player p : playerList) {
-                p.setCard(dealer.handOut());
-            }
-            play(i);
-        }
-
-        endGame();
+        return Integer.valueOf(re);
     }
 
     private void endGame() {
@@ -63,6 +64,7 @@ public class GamePlay {
                  System.out.println("닉네임 중복되었습니다. 다시 입력하세요");
                  continue;
              }
+
              nickNameSet.add(nickname);
             if (!Validator.PlayerNicknameCheck(nickname)) {
                 OutPutView.print(Message.RE_INPUT_NICKNAME_MESSAGE);
@@ -72,28 +74,38 @@ public class GamePlay {
             playerList.add(new Player(nickname));
             total--;
         }
-        System.out.println();
     }
 
     private void play(int round) {
+        CardDeck winnerDeck = getWinnerDeck();
+        Player winner = getWinner(winnerDeck);
 
-        Player p1 = playerList.get(0);
-        for (int i = 1; i < playerList.size(); i++) {
-            Player p2 = playerList.get(i);
-            p1 = Dealer.comparePlayer(p1, p2);
-        }
+        System.out.printf("============= 이번 %d라운드 우승자 ============= \n",round);
+        System.out.println(winner);
+        System.out.println();
+    }
 
+    private Player getWinner(CardDeck winnerDeck) {
+        Player winner = null;
         for (int i = 0; i < playerList.size(); i++) {
             Player player = playerList.get(i);
-            if (player.equals(p1)) {
+            if (player.getCardDeck().equals(winnerDeck)) {
                 player.win();
+                winner = player;
             } else {
                 player.lose();
                 System.out.println(player);
             }
         }
-        System.out.printf("============= 이번 %d라운드 우승자 ============= \n",round);
-        System.out.println(p1);
-        System.out.println();
+        return winner;
+    }
+
+    private CardDeck getWinnerDeck() {
+        CardDeck deck1 = playerList.get(0).getCardDeck();
+        for (int i = 1; i < playerList.size(); i++) {
+            CardDeck deck2 = playerList.get(i).getCardDeck();
+            deck1 = Dealer.comparePlayer(deck1, deck2);
+        }
+        return deck1;
     }
 }
