@@ -3,7 +3,9 @@ package main.java.service;
 import main.java.model.Card;
 import main.java.model.PokerRank;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Dealer {
     private List<Card> cardDeck;

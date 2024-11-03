@@ -1,8 +1,5 @@
 package main.java.service;
 
-import main.java.model.Card;
-
-import java.util.List;
 import java.util.Objects;
 
 
@@ -30,8 +27,9 @@ public class Player implements Comparable<Player> {
 
     @Override
     public String toString() {
-        return String.format("플레이어 %-21s %-22s 카드덱 %-40s 우승 횟수: %s", nickname, cardDeck.getRank(), cardDeck, win);
+        return String.format("%-20s  %-22s 카드덱 %-40s 우승 횟수: %s", nickname, cardDeck.getRank(), cardDeck, win);
     }
+
 
     public void win() {
         win++;

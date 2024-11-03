@@ -24,8 +24,8 @@ public class PlayerTest {
 
     @BeforeEach
     void init() {
-        player1 = new Player("테스터1");
-        player2 = new Player("테스터2");
+        player1 = new Player("테스터1sdfsd");
+        player2 = new Player("테스터2ㄴ어로로ㅓㅁ");
         
 
     }
@@ -198,6 +198,7 @@ public class PlayerTest {
     @Nested
     @DisplayName("노 페어일 때--")
     class highCardTest{
+
         @Nested
         @DisplayName("첫번째 탑 카드 확인")
         class first_top{
@@ -244,6 +245,7 @@ public class PlayerTest {
     void print(){
        royalPlayersFixture_1();
         System.out.println(player1);
+        System.out.println(player2);
     }
 
     @Nested
@@ -321,6 +323,7 @@ public class PlayerTest {
                 , new Card(9, Shape.CLOVA));
         player2.setCard(new PlayerCardDeck(new ArrayList<>(cards2)));
     }
+
 
     private void highPlayersFixture_5() {
         List<Card> cards1 = List.of(new Card(1, Shape.HEART)

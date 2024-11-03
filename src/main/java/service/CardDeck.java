@@ -4,9 +4,8 @@ import main.java.model.Card;
 import main.java.model.PokerRank;
 import main.java.model.Shape;
 
-import java.util.*;
-
-import static main.java.model.PokerRank.*;
+import java.util.List;
+import java.util.Map;
 
 public abstract class CardDeck {
 

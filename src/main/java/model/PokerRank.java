@@ -1,7 +1,6 @@
 package main.java.model;
 
 import main.java.service.CardDeck;
-import main.java.service.CardDeck;
 
 public enum PokerRank {
     HIGH_CARD(1, "High Card"){

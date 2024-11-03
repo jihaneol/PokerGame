@@ -1,7 +1,7 @@
 package main.java.util;
 
-import main.java.model.Shape;
 import main.java.model.Card;
+import main.java.model.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
