@@ -15,7 +15,8 @@ public class OutPutView {
 
     public static void printEndGameMessage(List<Player> sortedPlayer) {
         for(int i=1; i<=sortedPlayer.size(); i++){
-            System.out.printf("%d등 player%s\n",i,sortedPlayer.get(i-1));
+            Player player = sortedPlayer.get(i-1);
+            System.out.printf("%d등 player %-20s 카드덱 %-45s 우승횟수: %s \n",i,player.getNickname(), player.getCardDeck(), player.getWin());
         }
     }
 

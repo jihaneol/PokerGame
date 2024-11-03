@@ -5,6 +5,7 @@ import main.java.service.CardDeck;
 import main.java.service.Dealer;
 import main.java.service.Player;
 import main.java.service.PlayerCardDeck;
+import main.java.view.OutPutView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -24,8 +25,8 @@ public class PlayerTest {
 
     @BeforeEach
     void init() {
-        player1 = new Player("테스터1sdfsd");
-        player2 = new Player("테스터2ㄴ어로로ㅓㅁ");
+        player1 = new Player("병중");
+        player2 = new Player("한얼");
         
 
     }
@@ -244,8 +245,8 @@ public class PlayerTest {
     @DisplayName("같고있는 손패 확인")
     void print(){
        royalPlayersFixture_1();
-        System.out.println(player1);
-        System.out.println(player2);
+
+        OutPutView.printEndGameMessage(List.of(player1,player2));
     }
 
     @Nested

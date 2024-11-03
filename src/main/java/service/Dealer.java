@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Dealer {
+public class  Dealer {
     private List<Card> cardDeck;
     private int size = 51;
 

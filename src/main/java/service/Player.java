@@ -11,7 +11,13 @@ public class Player implements Comparable<Player> {
     private int win;
     private int lose;
 
+    public String getNickname(){
+        return this.nickname;
+    }
 
+    public int getWin(){
+        return this.win;
+    }
     public Player(String nickname) {
         this.money = 10000;
         this.nickname = nickname;
