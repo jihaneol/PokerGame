@@ -27,12 +27,13 @@ public class PlayerManeger {
                 continue;
             }
 
-            nickNameSet.add(nickname);
             if (!Validator.PlayerNicknameCheck(nickname)) {
                 OutPutView.print(Message.RE_INPUT_NICKNAME_MESSAGE);
                 OutPutView.print(Message.EXEMPLE_NICKNAME_MESSAGE);
                 continue;
             }
+
+            nickNameSet.add(nickname);
             playerList.add(new Player(nickname));
             total--;
         }

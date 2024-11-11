@@ -123,9 +123,6 @@ public class PlayerCardDeck extends CardDeck{
 
         }
 
-        // 문양 보기......
-        int idx = 0;
-        int max = 0;
         Shape shape = maxShape(p1.get(0).getKey());
         Shape shape1 = p.maxShape(p2.get(0).getKey());
 
