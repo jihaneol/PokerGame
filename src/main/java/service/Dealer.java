@@ -15,7 +15,7 @@ public class  Dealer {
         this.cardDeck = cardDeck;
     }
 
-    public void suffle() {
+    public void shuffle() {
         this.size = 51;
         Collections.shuffle(cardDeck);
     }

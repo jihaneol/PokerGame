@@ -6,7 +6,7 @@ import main.java.service.Player;
 
 import java.util.List;
 
-public class RoundManeger {
+public class RoundManager {
 
     public Player determineRoundWinner(List<Player> playerList) {
         CardDeck winnerDeck = getWinnerDeck(playerList);

@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-public class PlayerManeger {
+public class PlayerManager {
     private final List<Player> playerList = new ArrayList<>();
 
     public void makePlayer() {
