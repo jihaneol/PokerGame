@@ -19,9 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlayerTest {
 
-    private Dealer dealer;
     private Player player1, player2;
-
 
     @BeforeEach
     void init() {
