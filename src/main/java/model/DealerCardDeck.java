@@ -17,6 +17,7 @@ public class DealerCardDeck {
     public List<Card> handOut() {
         List<Card> result = new ArrayList<>();
         for(int i=0; i<5; i++) result.add(cardDeck.get(size--));
+
         return result;
     }
 }

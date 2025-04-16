@@ -3,6 +3,7 @@ package main.java.service;
 import main.java.model.Card;
 import main.java.model.DealerCardDeck;
 import main.java.model.PokerRank;
+import main.java.util.CardMaker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,8 +13,9 @@ public class Dealer {
 
     private DealerCardDeck cardDeck;
 
-    public Dealer(List<Card> cardDeck) {
-        this.cardDeck = new DealerCardDeck(cardDeck);
+    public Dealer() {
+        List<Card> card = CardMaker.make();
+        this.cardDeck = new DealerCardDeck(card);
     }
 
     public void shuffle() {

@@ -10,6 +10,7 @@ public class RoundManager {
 
     public Player determineRoundWinner(List<Player> playerList) {
         CardDeck winnerDeck = getWinnerDeck(playerList);
+
         return getWinner(playerList, winnerDeck);
     }
 
@@ -29,11 +30,13 @@ public class RoundManager {
     }
 
     private CardDeck getWinnerDeck(List<Player> playerList) {
+
         CardDeck deck1 = playerList.get(0).getCardDeck();
         for (int i = 1; i < playerList.size(); i++) {
             CardDeck deck2 = playerList.get(i).getCardDeck();
             deck1 = Dealer.comparePlayer(deck1, deck2);
         }
+
         return deck1;
     }
 }

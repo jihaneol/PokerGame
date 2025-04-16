@@ -11,13 +11,13 @@ public class ShapeTest {
     @DisplayName("문양 잘 갖고 오는지 테스트 Nested 사용해서")
     class GetShapeTest {
         @Test
-        @DisplayName("1 일때 클로버")
+        @DisplayName("1 일때 spade")
         void 문양_잘찾아오는지_테스트1() throws Exception {
             //given
             //when
             Shape shape = Shape.get(1);
             //then
-            assertEquals(shape,Shape.CLOVA);
+            assertEquals(shape,Shape.SPADE);
 
         }
         @Test
@@ -42,13 +42,13 @@ public class ShapeTest {
 
         }
         @Test
-        @DisplayName("4 일때 스페이드")
+        @DisplayName("4 일때 Clova")
         void 문양_잘찾아오는지_테스트4() throws Exception {
             //given
             //when
             Shape shape = Shape.get(4);
             //then
-            assertEquals(shape,Shape.SPADE);
+            assertEquals(shape,Shape.CLOVA);
 
         }
         @Test
@@ -65,10 +65,10 @@ public class ShapeTest {
     @DisplayName("숫자로 모양 잘 갖고 오는지 확인 assertAll 사용해서")
     void getShape() throws Exception {
         //then
-        assertAll(() -> assertEquals( Shape.get(1),Shape.CLOVA),
+        assertAll(() -> assertEquals( Shape.get(1),Shape.SPADE),
                 () -> assertEquals( Shape.get(2),Shape.DIAMOND),
                 () -> assertEquals( Shape.get(3),Shape.HEART),
-                () -> assertEquals( Shape.get(4),Shape.SPADE),
+                () -> assertEquals( Shape.get(4),Shape.CLOVA),
                 () -> assertThrows( IllegalStateException.class, () -> Shape.get(5)));
     }
 

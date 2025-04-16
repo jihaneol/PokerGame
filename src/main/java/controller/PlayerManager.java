@@ -15,6 +15,7 @@ import java.util.List;
 
 public class PlayerManager {
     private final List<Player> playerList = new ArrayList<>();
+    private Dealer dealer = new Dealer();
 
     public void makePlayer() {
         int total = getPlayerNumber();
@@ -54,7 +55,9 @@ public class PlayerManager {
         return this.playerList;
     }
 
-    public void distributeCards(Dealer dealer) {
+    public void distributeCards() {
+
+        dealer.shuffle();
         for (Player p : playerList) {
             CardDeck cardDeck = dealer.handOut();
             p.setCard(cardDeck);
